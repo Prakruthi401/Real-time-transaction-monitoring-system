@@ -3,3 +3,7 @@ This AI-powered Real-Time Transaction Monitoring System uses ML and anomaly dete
 
 the deployment of REAL-TIME TRANSACTION MONITORING SYSTEM
 https://drive.google.com/file/d/1nhIcrXXrLftvEA8CF9kQmupYBU5KgMVK/view?usp=sharing
+
+Done By:
+POOJA J(1KG22CB045)
+PRAKRUTHI GOWDA D(1KG22CB047)
