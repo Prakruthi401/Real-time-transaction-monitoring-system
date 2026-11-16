@@ -24,6 +24,7 @@ The existing Community Cloud deployment uses `updated_app_3.12.py`, which is now
 - **Single scoring:** type, amount and simulation hour in, model score and review flag out.
 - **Batch review:** CSV upload, strict validation, ranked review queue and scored CSV download. Maximum 10,000 rows and 2 MB.
 - **Replay demo:** advance through 100 selected synthetic transactions ten at a time. This is a replay, not a live feed.
+- **Account patterns:** offline account-level histories of repeat fraud labels and repeat model-review flags, with explicit empty states and evidence timelines.
 - **Model & evidence:** evaluation metrics, confusion matrix, feature choices and reproducibility record.
 
 Use invented or sample data, not real customer records. The app has no application database and does not use submitted inputs to retrain. Session data and uploaded files are processed by the hosting service; hosting infrastructure/logs are outside this app's control. Do not treat this as a private financial-data service.
@@ -84,6 +85,29 @@ python -m unittest test_app.py
 ```
 
 The original script's repeated training fragments, broken upload string, undefined variables, machine-specific CSV paths, and console input loops were replaced. The original work remains in Git history, rather than being silently presented as a working deployed model.
+
+## Retrospective account patterns
+
+The **Account patterns** tab implements a separate account-history analysis, not a new ML feature. On the exact complete dataset (6,362,620 rows, hours 1-743):
+
+- **0 repeat fraud origins:** all 8,213 fraud-labelled origin IDs are distinct. There is no evidence here of a repeatedly defrauded origin. We do not invent repeat victims.
+- **44 repeat fraud receivers:** each received two fraud-labelled transactions at different simulation hours.
+- **391 repeat model-review receivers:** at least two scores meet the existing review threshold. These can be false positives, not confirmed fraud.
+- The union is **428 receiver accounts**, because seven accounts appear in both categories. No origin account has repeated model-review flags.
+
+`nameOrig` and `nameDest` identify a transaction's origin and receiver. They do not establish verified victim or mule identities. A past fraud label supports a retrospective investigation pattern; it does **not** establish an increased probability of future victimization. The app estimates no recurrence probability and sends no alerts. An hour is a simulation hour, not a calendar date.
+
+Each selected account shows full-role transaction totals, label/flag counts, first and last fraud hours, and a reduced event history. Every fraud-labelled or model-flagged event plus first/last transaction context is shown; other normal rows are omitted. The prior-fraud marker is true only if a labelled event exists at a **strictly earlier hour** in the same role. Within-hour order is unknown. This replay uses known labels, which would not necessarily be available immediately in reality. Roles are analyzed separately, without cross-role identity resolution.
+
+All counts describe the **full synthetic run**, including training/validation rows. They are not a new held-out evaluation. The existing model, metrics, threshold and feature set remain unchanged; account IDs and labels stay out of ML inputs.
+
+To reproduce, after installing the pinned requirements:
+
+```bash
+python build_account_analysis.py --csv /path/to/paysim.csv
+```
+
+The builder verifies the dataset and model checksums, scores in bounded chunks, aggregates histories offline, and writes `account_analysis.json` (about 502 KB) plus `account_analysis_manifest.json` with dataset, model, builder and artifact SHA-256 hashes. The app verifies the summary checksum and experiment identity before loading. No 493 MB CSV is loaded or downloaded at app startup. No new runtime packages are required. Derived account summaries and selected history rows follow the dataset's CC BY-SA 4.0 attribution/share-alike terms.
 
 ## What production would require
 

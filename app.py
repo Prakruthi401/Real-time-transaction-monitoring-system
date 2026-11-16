@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit as st
 from threadpoolctl import threadpool_limits
 from fraud_core import COLUMNS, TYPES, features, validate
+from account_view import render_account_analysis
 
 ROOT = Path(__file__).parent
 st.set_page_config(page_title='Transaction Watch | Fraud scoring lab', page_icon='◈', layout='wide')
@@ -46,9 +47,9 @@ def csv_bytes(data):
 
 st.caption('TRANSACTION WATCH / A FRAUD SCORING LAB')
 st.title('A second look at suspicious payments.')
-st.write('Score a transaction, work through a review queue, or replay a small batch. A trained model runs each score, with its limits in plain sight.')
+st.write('Score a transaction, work through a review queue, replay a small batch, or inspect repeated account patterns. A trained model runs each score, with its limits in plain sight.')
 st.info('Portfolio demo, not a banking service. Uses synthetic PaySim data. No bank connection, payment blocking, live alerts or production fraud guarantees. Please use sample or invented data only.')
-tabs = st.tabs(['Score a transaction', 'Batch review', 'Replay demo', 'Model & evidence'])
+tabs = st.tabs(['Score a transaction', 'Batch review', 'Replay demo', 'Account patterns', 'Model & evidence'])
 
 with tabs[0]:
     left, right = st.columns([1.35, 1], gap='large')
@@ -123,6 +124,9 @@ with tabs[2]:
         st.caption('Simulation labels are shown only for learning. They are not inputs to the model.')
 
 with tabs[3]:
+    render_account_analysis()
+
+with tabs[4]:
     st.subheader('Measured, with the misses included')
     m = report['test_metrics']
     a,b,c,d = st.columns(4)
