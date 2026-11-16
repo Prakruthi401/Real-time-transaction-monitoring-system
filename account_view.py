@@ -47,7 +47,9 @@ def render_account_analysis():
         st.markdown(f'#### History: {account}')
         st.caption(f"{detail['transactions']:,} transactions in this role; {detail['fraud_count']} fraud labels; {detail['review_count']} model-review flags. Showing {detail['history_rows_shown']} rows: every fraud-labelled or model-flagged event plus first/last transaction context. Other normal transactions are omitted.")
         events = pd.DataFrame(detail['events']).rename(columns={'step':'simulation_hour','isFraud':'simulation_fraud_label'})
-        st.dataframe(events, hide_index=True, width='stretch', column_config={'model_score':st.column_config.NumberColumn(format='%.4f')})
+        timeline = events[['simulation_hour','type','amount','simulation_fraud_label','model_score','review_flag','prior_fraud_at_earlier_hour']].rename(columns={'simulation_hour':'Hour','type':'Type','amount':'Amount','simulation_fraud_label':'Fraud label','model_score':'Model score','review_flag':'Review flag','prior_fraud_at_earlier_hour':'Prior fraud?'})
+        st.dataframe(timeline, hide_index=True, width='stretch', column_config={'Model score':st.column_config.NumberColumn(format='%.4f')})
+        st.download_button('Download selected account history', events.to_csv(index=False), 'synthetic_account_history.csv', 'text/csv')
         if detail['fraud_count']>=2:
             st.write(f"First fraud-labelled receipt at hour {detail['first_fraud_hour']}; another at hour {detail['last_fraud_hour']}. Later events can be marked 'prior fraud at an earlier hour' using only the earlier label. This is a replay of known labels, not an advance warning.")
         st.caption('The prior-fraud marker requires a strictly earlier simulation hour. Events in the same hour have no known ordering. A simulation hour is not a calendar date; fraud labels would not necessarily be available immediately in a real system.')
