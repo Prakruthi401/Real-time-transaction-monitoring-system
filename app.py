@@ -5,6 +5,7 @@ from io import BytesIO
 import joblib
 import pandas as pd
 import streamlit as st
+from threadpoolctl import threadpool_limits
 from fraud_core import COLUMNS, TYPES, features, validate
 
 ROOT = Path(__file__).parent
@@ -35,7 +36,8 @@ threshold = report['threshold']
 def score(data):
     clean = validate(data)
     result = clean.reset_index(drop=True).copy()
-    result['model_score'] = model.predict_proba(features(clean))[:, 1]
+    with threadpool_limits(limits=1):
+        result['model_score'] = model.predict_proba(features(clean))[:, 1]
     result['review_flag'] = result.model_score >= threshold
     return result
 
