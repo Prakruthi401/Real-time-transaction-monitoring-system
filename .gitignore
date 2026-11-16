@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.csv.zip
+paysim.csv
+PS_*.csv
+.streamlit/secrets.toml

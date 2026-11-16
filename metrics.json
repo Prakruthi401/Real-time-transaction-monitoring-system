@@ -1,0 +1,74 @@
+{
+  "dataset": {
+    "sha256": "16910f90577b0d981bf8ff289714510bb89bc71bff7d3f220f024e287e4eea6b",
+    "rows": 6362620,
+    "fraud": 8213,
+    "source": "https://www.kaggle.com/datasets/ealaxi/paysim1",
+    "mirror": "https://huggingface.co/datasets/theman10/paysim"
+  },
+  "train_pool": {
+    "rows": 3820599,
+    "fraud": 3193,
+    "fraud_rate": 0.000835732826187726,
+    "step_min": 1,
+    "step_max": 281
+  },
+  "train": {
+    "rows": 1000000,
+    "fraud": 795,
+    "fraud_rate": 0.000795,
+    "step_min": 1,
+    "step_max": 281
+  },
+  "validation": {
+    "rows": 1293285,
+    "fraud": 770,
+    "fraud_rate": 0.0005953830748829531,
+    "step_min": 282,
+    "step_max": 355
+  },
+  "test": {
+    "rows": 1248736,
+    "fraud": 4250,
+    "fraud_rate": 0.0034034415601055788,
+    "step_min": 356,
+    "step_max": 743
+  },
+  "seed": 42,
+  "features": [
+    "log1p(amount)",
+    "hour_sin",
+    "hour_cos",
+    "type_CASH_IN",
+    "type_CASH_OUT",
+    "type_DEBIT",
+    "type_PAYMENT",
+    "type_TRANSFER"
+  ],
+  "threshold": 0.06288555833815529,
+  "threshold_policy": "Maximum validation F2 among thresholds with validation precision >= 0.10.",
+  "validation_precision": 0.40633608815426997,
+  "validation_recall": 0.38311688311688313,
+  "test_metrics": {
+    "average_precision": 0.39943578822123316,
+    "roc_auc": 0.9504478808212907,
+    "precision": 0.5195395334747046,
+    "recall": 0.40352941176470586,
+    "f1": 0.4542444709310025,
+    "confusion_matrix_tn_fp_fn_tp": [
+      1242900,
+      1586,
+      2535,
+      1715
+    ],
+    "no_skill_average_precision": 0.0034034415601055788
+  },
+  "versions": {
+    "python": "3.10.12",
+    "sklearn": "1.7.2",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "joblib": "1.5.2"
+  },
+  "model_sha256": "14fea8842fc7dc56a47e4ebfa8d76b43706959c279cdd8dccb5589a42907433d"
+}
