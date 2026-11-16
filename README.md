@@ -8,7 +8,7 @@ This is a portfolio demonstration, not a production banking service. It has no b
 
 ## Run it
 
-Python 3.10 or newer. The shipped experiment used Python 3.10.12. Package versions are pinned in `requirements.txt`.
+Python 3.10-3.13 for these pinned dependencies. The shipped experiment used Python 3.10.12; Community Cloud is configured to use Python 3.12. Do not select Python 3.14 with the pinned NumPy version. Package versions are in `requirements.txt`.
 
 ```bash
 python -m venv .venv
