@@ -6,6 +6,8 @@ An interactive fraud-scoring lab built from the original Real-time Transaction M
 
 This is a portfolio demonstration, not a production banking service. It has no bank feed, payment blocking, automatic alerts, persistent transaction database, authentication or financial compliance certification. "Real-time" here means interactive inference on submitted inputs, not monitoring actual accounts.
 
+![Screen recording of the app in use](assets/fraud-app-demo.gif)
+
 ## Run it
 
 Python 3.10-3.13 for these pinned dependencies. The shipped experiment used Python 3.10.12; Community Cloud is configured to use Python 3.12. Do not select Python 3.14 with the pinned NumPy version. Package versions are in `requirements.txt`.
