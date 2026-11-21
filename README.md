@@ -1,8 +1,8 @@
 # Transaction Watch
 
-An interactive fraud-scoring lab built from the original Real-time Transaction Monitoring System classroom project. It scores a single synthetic payment, reviews a CSV batch, and replays a labelled demonstration queue. The model is trained offline and shipped with the app, not trained again for each visitor.
+**Live app:** https://real-time-transaction-monitoring-system-9ytqnem6bhnwwxak4wawtz.streamlit.app/
 
-**Try it:** https://real-time-transaction-monitoring-system-9ytqnem6bhnwwxak4wawtz.streamlit.app/
+An interactive fraud-scoring lab built from the original Real-time Transaction Monitoring System classroom project. It scores a single synthetic payment, reviews a CSV batch, and replays a labelled demonstration queue. The model is trained offline and shipped with the app, not trained again for each visitor.
 
 This is a portfolio demonstration, not a production banking service. It has no bank feed, payment blocking, automatic alerts, persistent transaction database, authentication or financial compliance certification. "Real-time" here means interactive inference on submitted inputs, not monitoring actual accounts.
 
